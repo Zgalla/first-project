@@ -12,6 +12,7 @@ export class LoginPage {
     await this.page.goto(baseUrl);
   }
 
+  // Метод login реализован только здесь
   async login(username: string, password: string) {
     await expect(this.page.locator(selectors.usernameInput)).toBeVisible();
     await expect(this.page.locator(selectors.passwordInput)).toBeVisible();

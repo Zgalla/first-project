@@ -7,6 +7,8 @@ test.describe('Авторизация пользователей на SauceDemo'
     test(user.testName, async ({ page }) => {
       const loginPage = new LoginPage(page);
       await loginPage.goto();
+
+      // В тестах вызывается один метод login из Page Object
       await loginPage.login(user.username, user.password);
 
       if (user.expectSuccess) {
