@@ -1,12 +1,4 @@
-export interface User {
-  username: string;
-  password: string;
-  expectSuccess: boolean;
-  testName: string;
-  errorMessage?: string;
-}
-
-export const users: User[] = [
+export const users = [
   {
     username: 'standard_user',
     password: 'secret_sauce',
@@ -46,14 +38,12 @@ export const users: User[] = [
   },
 ];
 
-export const urls = {
-  baseUrl: 'https://www.saucedemo.com/',
-};
-
 export const selectors = {
-  usernameInput: '#user-name',
-  passwordInput: '#password',
-  loginButton: '#login-button',
+  usernameInput: '[data-test="username"]',
+  passwordInput: '[data-test="password"]',
+  loginButton: '[data-test="login-button"]',
   errorMessage: '[data-test="error"]',
   productsTitle: '.title',
 };
+
+export const baseUrl = 'https://www.saucedemo.com/';

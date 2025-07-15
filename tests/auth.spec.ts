@@ -1,16 +1,19 @@
-import { test } from '../fixtures/auth-fixtures';
+import { test } from '@playwright/test';
+import { LoginPage } from '../pages/LoginPage';
 import { users } from '../data/constants';
 
-test.describe.parallel('Авторизация пользователей на SauceDemo', () => {
+test.describe('Авторизация пользователей на SauceDemo', () => {
   for (const user of users) {
-    test(user.testName, async ({ loginAndVerify }) => {
-      await loginAndVerify(user);
+    test(user.testName, async ({ page }) => {
+      const loginPage = new LoginPage(page);
+      await loginPage.goto();
+      await loginPage.login(user.username, user.password);
+
+      if (user.expectSuccess) {
+        await loginPage.expectSuccessfulLogin();
+      } else {
+        await loginPage.expectErrorMessage(user.errorMessage!);
+      }
     });
   }
-});
-
-test('Тест с уже залогиненным стандартным пользователем', async ({ loggedInPage }) => {
-  // Можно сразу проверять нужные элементы
-  const shoppingCartBadge = loggedInPage.locator('.shopping_cart_badge');
-  await shoppingCartBadge.waitFor({ state: 'detached' }); // Убедиться что корзина пустая
 });

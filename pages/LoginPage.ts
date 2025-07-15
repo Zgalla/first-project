@@ -1,5 +1,5 @@
 import { Page, expect } from '@playwright/test';
-import { urls, selectors } from '../data/constants';
+import { selectors, baseUrl } from '../data/constants';
 
 export class LoginPage {
   readonly page: Page;
@@ -9,17 +9,22 @@ export class LoginPage {
   }
 
   async goto() {
-    await this.page.goto(urls.baseUrl);
+    await this.page.goto(baseUrl);
   }
 
   async login(username: string, password: string) {
+    await expect(this.page.locator(selectors.usernameInput)).toBeVisible();
+    await expect(this.page.locator(selectors.passwordInput)).toBeVisible();
+
     await this.page.fill(selectors.usernameInput, username);
     await this.page.fill(selectors.passwordInput, password);
+
+    await expect(this.page.locator(selectors.loginButton)).toBeVisible();
     await this.page.click(selectors.loginButton);
   }
 
-  async expectProductsPage() {
-    await expect(this.page.locator(selectors.productsTitle)).toBeVisible();
+  async expectSuccessfulLogin() {
+    await expect(this.page.locator(selectors.productsTitle)).toHaveText('Products');
   }
 
   async expectErrorMessage(message: string) {
