@@ -3,12 +3,15 @@ import { LoginPage } from '../pages/LoginPage';
 import { users } from '../data/constants';
 
 test.describe('Авторизация пользователей на SauceDemo', () => {
-  for (const user of users) {
-    test(user.testName, async ({ page }) => {
-      const loginPage = new LoginPage(page);
-      await loginPage.goto();
+  let loginPage: LoginPage;
 
-      // В тестах вызывается один метод login из Page Object
+  test.beforeEach(async ({ page }) => {
+    loginPage = new LoginPage(page);
+    await loginPage.goto();
+  });
+
+  for (const user of users) {
+    test(user.testName, async () => {
       await loginPage.login(user.username, user.password);
 
       if (user.expectSuccess) {
