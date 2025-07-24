@@ -1,0 +1,47 @@
+export interface User {
+  username: string;
+  password: string;
+  expectSuccess: boolean;
+  testName: string;
+  errorMessage?: string;
+}
+
+export const users: User[] = [
+  {
+    username: 'standard_user',
+    password: 'secret_sauce',
+    expectSuccess: true,
+    testName: 'Успешный вход стандартного пользователя',
+  },
+  {
+    username: 'locked_out_user',
+    password: 'secret_sauce',
+    expectSuccess: false,
+    errorMessage: 'Epic sadface: Sorry, this user has been locked out.',
+    testName: 'Ошибка входа заблокированного пользователя',
+  },
+  {
+    username: 'problem_user',
+    password: 'secret_sauce',
+    expectSuccess: true,
+    testName: 'Успешный вход пользователя с проблемами',
+  },
+  {
+    username: 'performance_glitch_user',
+    password: 'secret_sauce',
+    expectSuccess: true,
+    testName: 'Успешный вход пользователя с задержками',
+  },
+  {
+    username: 'error_user',
+    password: 'secret_sauce',
+    expectSuccess: true,
+    testName: 'Успешный вход пользователя, вызывающего ошибки',
+  },
+  {
+    username: 'visual_user',
+    password: 'secret_sauce',
+    expectSuccess: true,
+    testName: 'Успешный вход визуального пользователя',
+  },
+];
